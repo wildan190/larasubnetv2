@@ -36,6 +36,7 @@ class VoucherController extends Controller
                 $item->size,
                 $item->price,
                 $item->category_id,
+                $item->duration,
             ]));
         });
 
@@ -52,6 +53,7 @@ class VoucherController extends Controller
                 'category' => $first->category,
                 'stock' => $group->count(),
                 'voucher_ids' => $group->pluck('id'),
+                'duration' => $first->duration,
             ];
         })->values(); // reset keys
 
