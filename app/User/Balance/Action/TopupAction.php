@@ -24,7 +24,7 @@ class TopupAction
                 'email' => $user->email,
             ],
             'callbacks' => [
-                'finish' => "https://studio--voucherverse-h9b25.us-central1.hosted.app/balance",
+                'finish' => "https://latsubnet.com/balance",
             ],
         ];
 
