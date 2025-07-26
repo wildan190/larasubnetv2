@@ -20,6 +20,7 @@ class UpdateAction
             'user_account' => 'required|string|max:255',
             'password_account' => 'required|string|max:255',
             'status' => 'in:available,sold,expired',
+            'duration' => 'nullable|integer|min:0',
         ]);
 
         if ($validator->fails()) {

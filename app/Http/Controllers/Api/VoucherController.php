@@ -49,9 +49,9 @@ class VoucherController extends Controller
                 'size' => $first->size,
                 'price' => $first->price,
                 'category_id' => $first->category_id,
-                'category' => $first->category, // relasi jika eager loaded
+                'category' => $first->category,
                 'stock' => $group->count(),
-                'voucher_ids' => $group->pluck('id'), // jika frontend butuh id-id voucher
+                'voucher_ids' => $group->pluck('id'),
             ];
         })->values(); // reset keys
 

@@ -18,6 +18,7 @@ class Voucher extends Model
         'user_account',
         'password_account',
         'status',
+        'duration',
     ];
 
     public function category()
