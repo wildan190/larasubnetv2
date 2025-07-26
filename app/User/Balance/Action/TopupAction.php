@@ -24,7 +24,7 @@ class TopupAction
                 'email' => $user->email,
             ],
             'callbacks' => [
-                'finish' => "https://6000-firebase-studio-1752952017341.cluster-nzwlpk54dvagsxetkvxzbvslyi.cloudworkstations.dev/balance", // Sesuaikan jika Anda pakai route untuk handle redirect
+                'finish' => "https://studio--voucherverse-h9b25.us-central1.hosted.app/balance",
             ],
         ];
 
@@ -50,7 +50,7 @@ class TopupAction
     private static function midtransConfig()
     {
         Config::$serverKey = config('services.midtrans.server_key');
-        Config::$isProduction = config('services.midtrans.is_production', false);
+        Config::$isProduction = config('services.midtrans.is_production', true);
         Config::$isSanitized = true;
         Config::$is3ds = true;
     }
