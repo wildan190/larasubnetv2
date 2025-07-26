@@ -19,7 +19,7 @@ class BalanceController extends Controller
     public function topup(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:1000',
+            'amount' => 'required|numeric|min:1',
         ]);
 
         $user = $request->user();
