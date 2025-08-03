@@ -23,8 +23,13 @@ class TopupAction
                 'first_name' => $user->name,
                 'email' => $user->email,
             ],
+<<<<<<< HEAD
+            'callbacks' => [
+                'finish' => "https://latsubnet.com/balance",
+=======
             'bank_transfer' => [
                 'bank' => 'bni',
+>>>>>>> d1ad38e4b10c98f73d877340d2e873dde458d73e
             ],
         ];
 
