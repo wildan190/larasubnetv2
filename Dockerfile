@@ -24,17 +24,14 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-COPY . .
-
-# Pastikan entrypoint executable
-RUN chmod +x /var/www/docker-entrypoint.sh
+# Copy source dengan kepemilikan www-data sehingga tidak perlu chown terpisah
+COPY --chown=www-data:www-data . .
 
 # Install PHP deps
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www
+# Set permissions minimal (jika masih perlu)
+RUN chmod -R 755 /var/www
 
 EXPOSE 9000
 
