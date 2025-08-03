@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: laravel-app
-    container_name: laravel-app
+    image: larasubnetv2-app
+    container_name: larasubnetv2-app
     restart: unless-stopped
     volumes:
       - .:/var/www
