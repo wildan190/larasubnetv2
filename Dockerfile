@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     libpq-dev \
-    nano
+    nano \
+    procps
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
@@ -25,7 +26,11 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN composer install
+# Pastikan entrypoint executable
+RUN chmod +x /var/www/docker-entrypoint.sh
+
+# Install PHP deps
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www \
