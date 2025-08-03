@@ -51,7 +51,7 @@ Route::prefix('admin/topups')->middleware(['auth:sanctum', 'isAdmin'])->group(fu
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    // Route::post('balance/topup', [BalanceController::class, 'topup']);
+    Route::post('balance/topup', [BalanceController::class, 'topup']);
     Route::post('balance/topup-snap', [BalanceController::class, 'topup']);
 });
 
@@ -72,7 +72,7 @@ Route::prefix('user/purchase')->middleware('auth:sanctum')->group(function () {
 
 Route::prefix('user/purchase')->middleware('auth:sanctum')->group(function () {
     Route::post('/checkout-midtrans', [\App\User\Purchase\Controllers\PurchaseController::class, 'checkoutWithMidtrans']);
-    Route::get('/checkout-midtrans-qris', [\App\User\Purchase\Controllers\PurchaseController::class, 'checkoutWithMidtransQRIS']);
+    Route::post('/checkout-midtrans-qris', [\App\User\Purchase\Controllers\PurchaseController::class, 'checkoutWithMidtransQRIS']);
 });
 
 Route::post('/midtrans/callback', [\App\Http\Controllers\MidtransCallbackController::class, 'handle']);

@@ -4,7 +4,6 @@ namespace App\User\Balance\Action;
 
 use App\Models\Balance;
 use Midtrans\Config;
-use Midtrans\Snap;
 
 class TopupAction
 {
@@ -12,9 +11,10 @@ class TopupAction
     {
         self::midtransConfig();
 
-        $orderId = 'TOPUP-' . time() . '-' . rand(100, 999);
+        $orderId = 'TOPUP-'.time().'-'.rand(100, 999);
 
         $params = [
+            'payment_type' => 'bank_transfer',
             'transaction_details' => [
                 'order_id' => $orderId,
                 'gross_amount' => $amount,
@@ -23,26 +23,35 @@ class TopupAction
                 'first_name' => $user->name,
                 'email' => $user->email,
             ],
+<<<<<<< HEAD
             'callbacks' => [
                 'finish' => "https://latsubnet.com/balance",
+=======
+            'bank_transfer' => [
+                'bank' => 'bni',
+>>>>>>> d1ad38e4b10c98f73d877340d2e873dde458d73e
             ],
         ];
 
-        $snapToken = Snap::getSnapToken($params);
+        $response = \Midtrans\CoreApi::charge($params);
+
+        $va_number = $response->va_numbers[0]->va_number ?? null;
+        $vendor = $response->va_numbers[0]->bank ?? null;
 
         Balance::create([
             'user_id' => $user->id,
             'order_id' => $orderId,
             'amount' => $amount,
-            'payment_type' => 'snap',
+            'payment_type' => 'bank_transfer',
             'status' => 'pending',
-            'va_number' => null, 
-            'vendor' => null,
+            'va_number' => $va_number,
+            'vendor' => $vendor,
         ]);
 
         return [
             'order_id' => $orderId,
-            'snap_token' => $snapToken,
+            'va_number' => $va_number,
+            'vendor' => $vendor,
             'amount' => $amount,
         ];
     }
