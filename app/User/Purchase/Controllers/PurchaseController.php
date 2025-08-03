@@ -13,15 +13,17 @@ class PurchaseController extends Controller
 {
     public function addToCart(Request $request)
     {
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'quantity' => 'required|integer|min:1',
-        ]);
+        $user = request()->user(); // Ambil user yang sedang login
+        $voucherId = $request->input('voucher_id'); // Pastikan ini adalah ID voucher spesifik yang dipilih user
+        $quantity = $request->input('quantity', 1); // Default quantity 1
 
-        $user = $request->user();
-        $result = CartAction::addToCart($user, $request->category_id, $request->quantity);
+        $result = CartAction::addToCart($user, $voucherId, $quantity);
 
-        return response()->json($result);
+        if (isset($result['error'])) {
+            return back()->with('error', $result['error']);
+        }
+
+        return back()->with('success', $result['message']);
     }
 
     public function removeFromCart(Request $request)
