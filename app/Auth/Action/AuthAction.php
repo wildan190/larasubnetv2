@@ -15,6 +15,7 @@ class AuthAction
         $validator = Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'nullable|string|max:15',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -25,6 +26,7 @@ class AuthAction
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'] ?? null,
             'password' => Hash::make($data['password']),
             'is_admin' => false,
         ]);
