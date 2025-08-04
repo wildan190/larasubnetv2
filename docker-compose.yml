@@ -32,9 +32,9 @@ services:
       db:
         condition: service_healthy
     environment:
-      # pastikan .env ada di project root; bisa override jika perlu
       APP_ENV: production
-    entrypoint: ["/var/www/docker-entrypoint.sh"]
+    # Tidak perlu docker-entrypoint.sh jika mau langsung php-fpm
+    command: php-fpm
 
   webserver:
     image: nginx:alpine
