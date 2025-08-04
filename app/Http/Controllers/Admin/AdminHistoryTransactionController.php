@@ -54,16 +54,17 @@ class AdminHistoryTransactionController extends Controller
         ]);
     }
 
-    public function showTransactionItemsHistory(Request $request)
+    public function showTransactionItemsHistory(Request $request, $transaction_id)
     {
         try {
             $transactionItems = TransactionItem::with(['voucher', 'transaction'])
+                ->where('transaction_id', $transaction_id)
                 ->orderByDesc('created_at')
                 ->get();
 
             if ($transactionItems->isEmpty()) {
                 return response()->json([
-                    'message' => 'No transaction items found',
+                    'message' => 'No transaction items found for this transaction',
                     'data' => [],
                 ], 404);
             }
