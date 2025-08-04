@@ -54,7 +54,7 @@ class AdminHistoryTransactionController extends Controller
         ]);
     }
 
-    public function showTransactionItemsHistory(Request $request, $transaction_id)
+    public function showTransactionItemsHistory($transaction_id)
     {
         try {
             $transactionItems = TransactionItem::with(['voucher', 'transaction'])
