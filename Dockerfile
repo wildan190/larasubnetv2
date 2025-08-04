@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
     git \
     libpq-dev \
     nano \
-    procps
+    procps && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
@@ -27,10 +28,10 @@ WORKDIR /var/www
 # Copy source dengan kepemilikan www-data sehingga tidak perlu chown terpisah
 COPY --chown=www-data:www-data . .
 
-# Install PHP deps
+# Install dependencies Laravel
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Set permissions minimal (jika masih perlu)
+# Set permissions
 RUN chmod -R 755 /var/www
 
 EXPOSE 9000
