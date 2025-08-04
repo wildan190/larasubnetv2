@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum', 'isAdmin')->group(function () {
     Route::prefix('admin/transactions')->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\AdminHistoryTransactionController::class, 'index']);
         Route::get('/pending', [\App\Http\Controllers\Admin\AdminHistoryTransactionController::class, 'pendingHistory']);
+        Route::get('/items', [\App\Http\Controllers\Admin\AdminHistoryTransactionController::class, 'showTransactionItemsHistory']);
     });
 
 });
