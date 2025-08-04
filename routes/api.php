@@ -44,6 +44,11 @@ Route::middleware('auth:sanctum', 'isAdmin')->group(function () {
         Route::delete('/{id}', [VoucherController::class, 'destroy']);
     });
 
+    Route::prefix('admin/transactions')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\AdminHistoryTransactionController::class, 'index']);
+        Route::get('/pending', [\App\Http\Controllers\Admin\AdminHistoryTransactionController::class, 'pendingHistory']);
+    });
+
 });
 
 Route::prefix('admin/topups')->middleware(['auth:sanctum', 'isAdmin'])->group(function () {
